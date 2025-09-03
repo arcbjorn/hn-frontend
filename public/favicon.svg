@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <!-- Dark rounded rectangle background -->
+  <rect width="256" height="256" rx="32" ry="32" fill="#2a2a2a"/>
+  
+  <!-- Orange H letter -->
+  <g fill="#fe8019">
+    <!-- Left vertical bar -->
+    <rect x="64" y="48" width="32" height="160"/>
+    
+    <!-- Right vertical bar -->
+    <rect x="160" y="48" width="32" height="160"/>
+    
+    <!-- Horizontal crossbar -->
+    <rect x="96" y="112" width="64" height="32"/>
+  </g>
+</svg>
