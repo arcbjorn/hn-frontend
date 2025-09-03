@@ -1,17 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap');
 
 :root {
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #1a1a1a;
-  --bg-tertiary: #2a2a2a;
-  --text-primary: #e0e0e0;
-  --text-secondary: #a0a0a0;
-  --text-muted: #666;
-  --accent-cyan: #64ffda;
-  --accent-purple: #bb86fc;
-  --accent-orange: #ff9500;
-  --border: #333;
-  --shadow: rgba(100, 255, 218, 0.1);
+  --bg-primary: #1d2021;
+  --bg-secondary: #282828;
+  --bg-tertiary: #32302f;
+  --text-primary: #ebdbb2;
+  --text-secondary: #a89984;
+  --text-muted: #928374;
+  --accent-yellow: #d79921;
+  --accent-purple: #b16286;
+  --accent-orange: #fe8019;
+  --border: #3c3836;
+  --shadow: rgba(215, 153, 33, 0.1);
   
   font-family: 'JetBrains Mono', monospace;
   line-height: 1.6;
@@ -29,11 +29,69 @@
   box-sizing: border-box;
 }
 
+/* Global link styles */
+a {
+  color: var(--accent-yellow);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-orange);
+}
+
+a:visited {
+  color: var(--accent-purple);
+}
+
+a:active {
+  color: var(--text-primary);
+}
+
+/* Text selection styles */
+::selection {
+  background-color: var(--accent-yellow);
+  color: var(--bg-primary);
+}
+
+::-moz-selection {
+  background-color: var(--accent-yellow);
+  color: var(--bg-primary);
+}
+
+/* Focus styles */
+a:focus {
+  outline: 2px solid var(--accent-yellow);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+button:focus {
+  outline: 2px solid var(--accent-yellow);
+  outline-offset: 2px;
+}
+
+input:focus, textarea:focus {
+  outline: 2px solid var(--accent-yellow);
+  outline-offset: 2px;
+}
+
+/* Cursor styles */
+a, button, [onclick] {
+  cursor: pointer;
+}
+
+input, textarea {
+  cursor: text;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
   background: var(--bg-primary);
   font-family: 'JetBrains Mono', monospace;
+  overflow-x: hidden;
+  word-wrap: break-word;
 }
 
 #app {
@@ -213,8 +271,34 @@ body {
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%, 100% { 
+    opacity: 1; 
+    background-position: 200% 0;
+  }
+  50% { 
+    opacity: 0.8; 
+    background-position: -200% 0;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
 @media (max-width: 768px) {

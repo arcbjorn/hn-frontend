@@ -795,7 +795,7 @@ const view = (state: any) => {
             }
           }, text(`Error: ${state.error}`)),
           
-          state.stories && state.stories.length > 0 && h('div', { 
+          !state.loading && state.stories && state.stories.length > 0 && h('div', { 
             style: { 
               backgroundColor: colors.surface,
               borderRadius: '8px',
