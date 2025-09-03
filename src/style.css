@@ -1,35 +1,73 @@
+/* ===========================
+   FONTS & IMPORTS
+   =========================== */
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap');
 
+/* ===========================
+   GRUVBOX COLOR VARIABLES
+   =========================== */
 :root {
+  /* Backgrounds */
   --bg-primary: #1d2021;
   --bg-secondary: #282828;
   --bg-tertiary: #32302f;
+  
+  /* Text */
   --text-primary: #ebdbb2;
   --text-secondary: #a89984;
   --text-muted: #928374;
+  
+  /* Accents */
   --accent-yellow: #d79921;
   --accent-purple: #b16286;
   --accent-orange: #fe8019;
+  --accent-green: #b8bb26;
+  
+  /* UI Elements */
   --border: #3c3836;
+  --border-light: #504945;
   --shadow: rgba(215, 153, 33, 0.1);
   
+  /* Typography */
   font-family: 'JetBrains Mono', monospace;
   line-height: 1.6;
   font-weight: 400;
   color: var(--text-primary);
   background-color: var(--bg-primary);
   
+  /* Font Optimization */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ===========================
+   GLOBAL RESETS & BASE STYLES
+   =========================== */
 * {
   box-sizing: border-box;
 }
 
-/* Global link styles */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  font-family: 'JetBrains Mono', monospace;
+  overflow-x: hidden;
+  word-wrap: break-word;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===========================
+   GLOBAL INTERACTIVE STYLES
+   =========================== */
+/* Links */
 a {
   color: var(--accent-yellow);
   text-decoration: none;
@@ -48,7 +86,7 @@ a:active {
   color: var(--text-primary);
 }
 
-/* Text selection styles */
+/* Text Selection */
 ::selection {
   background-color: var(--accent-yellow);
   color: var(--bg-primary);
@@ -59,7 +97,7 @@ a:active {
   color: var(--bg-primary);
 }
 
-/* Focus styles */
+/* Focus States */
 a:focus {
   outline: 2px solid var(--accent-yellow);
   outline-offset: 2px;
@@ -71,35 +109,27 @@ button:focus {
   outline-offset: 2px;
 }
 
-input:focus, textarea:focus {
+input:focus, 
+textarea:focus {
   outline: 2px solid var(--accent-yellow);
   outline-offset: 2px;
 }
 
-/* Cursor styles */
-a, button, [onclick] {
+/* Cursor Styles */
+a, 
+button, 
+[onclick] {
   cursor: pointer;
 }
 
-input, textarea {
+input, 
+textarea {
   cursor: text;
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: var(--bg-primary);
-  font-family: 'JetBrains Mono', monospace;
-  overflow-x: hidden;
-  word-wrap: break-word;
-}
-
-#app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
+/* ===========================
+   LAYOUT COMPONENTS
+   =========================== */
 .app {
   display: flex;
   flex-direction: column;
@@ -116,16 +146,6 @@ body {
   z-index: 100;
 }
 
-.title {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--accent-cyan);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
-}
-
 .main {
   flex: 1;
   max-width: 800px;
@@ -134,6 +154,9 @@ body {
   width: 100%;
 }
 
+/* ===========================
+   STORY COMPONENTS
+   =========================== */
 .stories {
   display: flex;
   flex-direction: column;
@@ -150,26 +173,10 @@ body {
   overflow: hidden;
 }
 
-.story-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
 .story-item:hover {
-  border-color: var(--accent-cyan);
+  border-color: var(--accent-yellow);
   box-shadow: 0 4px 20px var(--shadow);
   transform: translateY(-2px);
-}
-
-.story-item:hover::before {
-  opacity: 1;
 }
 
 .story-meta {
@@ -189,10 +196,7 @@ body {
   content: '▲ ';
 }
 
-.story-author {
-  color: var(--text-muted);
-}
-
+.story-author,
 .story-time {
   color: var(--text-muted);
 }
@@ -211,8 +215,7 @@ body {
 }
 
 .story-title a:hover {
-  color: var(--accent-cyan);
-  text-shadow: 0 0 5px rgba(100, 255, 218, 0.2);
+  color: var(--accent-yellow);
 }
 
 .story-comments {
@@ -221,6 +224,9 @@ body {
   margin-top: 0.5rem;
 }
 
+/* ===========================
+   STATE COMPONENTS
+   =========================== */
 .loading,
 .error {
   text-align: center;
@@ -229,24 +235,27 @@ body {
 }
 
 .loading {
-  color: var(--accent-cyan);
+  color: var(--accent-yellow);
   animation: pulse 2s infinite;
 }
 
 .error {
   color: var(--accent-orange);
-  background: rgba(255, 149, 0, 0.1);
-  border: 1px solid rgba(255, 149, 0, 0.3);
+  background: rgba(254, 128, 25, 0.1);
+  border: 1px solid rgba(254, 128, 25, 0.3);
   border-radius: 8px;
 }
 
+/* ===========================
+   UTILITY COMPONENTS
+   =========================== */
 .refresh-btn {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
   background: var(--bg-secondary);
-  border: 1px solid var(--accent-cyan);
-  color: var(--accent-cyan);
+  border: 1px solid var(--accent-yellow);
+  color: var(--accent-yellow);
   padding: 0.75rem 1.5rem;
   border-radius: 25px;
   font-family: inherit;
@@ -260,9 +269,9 @@ body {
 }
 
 .refresh-btn:hover {
-  background: var(--accent-cyan);
+  background: var(--accent-yellow);
   color: var(--bg-primary);
-  box-shadow: 0 4px 20px rgba(100, 255, 218, 0.3);
+  box-shadow: 0 4px 20px rgba(215, 153, 33, 0.3);
   transform: translateY(-2px);
 }
 
@@ -270,6 +279,9 @@ body {
   transform: translateY(0);
 }
 
+/* ===========================
+   ANIMATIONS
+   =========================== */
 @keyframes pulse {
   0%, 100% { 
     opacity: 1; 
@@ -282,25 +294,52 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
 }
 
 @keyframes slideIn {
-  from { transform: translateX(-20px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+  from { 
+    transform: translateX(-20px); 
+    opacity: 0; 
+  }
+  to { 
+    transform: translateX(0); 
+    opacity: 1; 
+  }
 }
 
 @keyframes slideInUp {
-  from { transform: translateY(30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from { 
+    transform: translateY(30px); 
+    opacity: 0; 
+  }
+  to { 
+    transform: translateY(0); 
+    opacity: 1; 
+  }
 }
 
 @keyframes scaleIn {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from { 
+    transform: scale(0.9); 
+    opacity: 0; 
+  }
+  to { 
+    transform: scale(1); 
+    opacity: 1; 
+  }
 }
 
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
 @media (max-width: 768px) {
   .header {
     padding: 1rem;
