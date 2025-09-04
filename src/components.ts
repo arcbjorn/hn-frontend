@@ -192,6 +192,7 @@ export const StoryItem = (story: Story) =>
             color: colors.primary, 
             textDecoration: 'none',
             transition: 'color 0.2s ease',
+            cursor: 'pointer'
           },
           onmouseover: (state: any, event: any) => {
             event.target.style.color = colors.secondary
@@ -208,23 +209,41 @@ export const StoryItem = (story: Story) =>
 
 // Comment component
 export const CommentItem = (comment: Comment, level: number = 0) => {
-  if (!comment) return null
-
+  if (!comment || comment.deleted) return null
+  
+  const indentSize = level * 20
+  
   return h('div', { 
     style: { 
-      paddingLeft: (level * 20) + 'px',
-      borderBottom: '1px solid ' + colors.border,
-      padding: '12px ' + (20 - level * 2) + 'px'
+      marginLeft: `${indentSize}px`,
+      marginBottom: '16px',
+      borderLeft: level > 0 ? '2px solid rgba(42, 77, 82, 0.3)' : 'none',
+      paddingLeft: level > 0 ? '12px' : '16px',
+      paddingRight: '16px',
+      paddingTop: '12px',
+      paddingBottom: '12px'
     }
   }, [
     h('div', { 
       style: { 
-        fontSize: '11px', 
+        fontSize: '11px',
         color: colors.textMuted,
-        marginBottom: '8px' 
+        marginBottom: '6px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px'
       }
     }, [
-      text(`${comment.by || 'unknown'} ${formatTimeAgo(comment.time)}`)
+      h('span', { 
+        style: { 
+          color: colors.primary,
+          fontWeight: '500'
+        }
+      }, text(comment.by || 'unknown')),
+      text(`${formatTimeAgo(comment.time)}`),
+      comment.replies && comment.replies.length > 0 && h('span', { 
+        style: { color: colors.textFaded }
+      }, text(`[+${comment.replies.length} replies]`))
     ]),
     h('div', { 
       style: { 
@@ -239,7 +258,9 @@ export const CommentItem = (comment: Comment, level: number = 0) => {
       },
       innerHTML: comment.text || ''
     }),
-    comment.replies && comment.replies.map((reply: Comment) => CommentItem(reply, level + 1))
+    comment.replies && comment.replies.length > 0 && h('div', { 
+      style: { marginTop: '12px' }
+    }, comment.replies.filter((reply: Comment) => reply && !reply.deleted).map((reply: Comment) => CommentItem(reply, level + 1)))
   ])
 }
 
