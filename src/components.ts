@@ -96,9 +96,9 @@ export const StoryItem = (story: Story) =>
     h('td', { 
       class: CSS_CLASSES.STORY_CONTENT,
       style: { 
-        paddingRight: '24px',
-        paddingBottom: '16px',
-        paddingTop: '12px'
+        paddingRight: window.innerWidth <= 768 ? '16px' : '24px',
+        paddingBottom: window.innerWidth <= 768 ? '12px' : '16px',
+        paddingTop: window.innerWidth <= 768 ? '8px' : '12px'
       }
     }, [
       // Title line
@@ -117,7 +117,7 @@ export const StoryItem = (story: Story) =>
               style: { 
                 color: colors.text, 
                 textDecoration: 'none',
-                fontSize: '16px',
+                fontSize: window.innerWidth <= 480 ? '14px' : '16px',
                 fontWeight: '600',
                 lineHeight: '1.5',
                 letterSpacing: '0.01em',
@@ -135,7 +135,7 @@ export const StoryItem = (story: Story) =>
           : h('span', { 
               style: { 
                 color: colors.text,
-                fontSize: '16px',
+                fontSize: window.innerWidth <= 480 ? '14px' : '16px',
                 fontWeight: '600',
                 lineHeight: '1.5',
                 letterSpacing: '0.01em'
@@ -156,13 +156,14 @@ export const StoryItem = (story: Story) =>
       h('div', { 
         class: CSS_CLASSES.SUBTEXT,
         style: { 
-          fontSize: '13px', 
+          fontSize: window.innerWidth <= 480 ? '11px' : '13px', 
           color: colors.textMuted,
           lineHeight: '1.4',
           display: 'flex',
           alignItems: 'center',
-          gap: '12px',
-          marginTop: '6px'
+          gap: window.innerWidth <= 480 ? '8px' : '12px',
+          marginTop: '6px',
+          flexWrap: window.innerWidth <= 480 ? 'wrap' : 'nowrap'
         }
       }, [
         h('span', { style: { color: colors.accent, fontWeight: '500' } }, text(`${story.score || 0} ${UI_TEXT.POINTS_SUFFIX}`)),
@@ -215,13 +216,13 @@ export const CommentItem = (comment: Comment, level: number = 0) => {
   
   return h('div', { 
     style: { 
-      marginLeft: `${indentSize}px`,
-      marginBottom: '16px',
+      marginLeft: window.innerWidth <= 768 ? `${indentSize * 0.6}px` : `${indentSize}px`,
+      marginBottom: window.innerWidth <= 768 ? '12px' : '16px',
       borderLeft: level > 0 ? '2px solid rgba(42, 77, 82, 0.3)' : 'none',
-      paddingLeft: level > 0 ? '12px' : '16px',
-      paddingRight: '16px',
-      paddingTop: '12px',
-      paddingBottom: '12px'
+      paddingLeft: level > 0 ? (window.innerWidth <= 768 ? '8px' : '12px') : (window.innerWidth <= 768 ? '12px' : '16px'),
+      paddingRight: window.innerWidth <= 768 ? '12px' : '16px',
+      paddingTop: window.innerWidth <= 768 ? '8px' : '12px',
+      paddingBottom: window.innerWidth <= 768 ? '8px' : '12px'
     }
   }, [
     h('div', { 
@@ -247,10 +248,10 @@ export const CommentItem = (comment: Comment, level: number = 0) => {
     ]),
     h('div', { 
       style: { 
-        fontSize: '13px',
+        fontSize: window.innerWidth <= 480 ? '12px' : '13px',
         lineHeight: '1.5',
         color: colors.text,
-        marginBottom: '12px',
+        marginBottom: window.innerWidth <= 768 ? '8px' : '12px',
         wordWrap: 'break-word',
         overflowWrap: 'break-word',
         wordBreak: 'break-word',
@@ -356,9 +357,10 @@ export const NavigationLinks = (state: AppState) =>
     style: { 
       display: 'flex',
       alignItems: 'center',
-      gap: '16px',
-      fontSize: '14px',
-      fontWeight: '500'
+      gap: window.innerWidth <= 768 ? '8px' : '16px',
+      fontSize: window.innerWidth <= 480 ? '12px' : '14px',
+      fontWeight: '500',
+      flexWrap: window.innerWidth <= 480 ? 'wrap' : 'nowrap'
     }
   }, [
     h('a', { 
@@ -465,7 +467,7 @@ export const Header = (state: AppState) =>
     style: { 
       width: '100%', 
       backgroundColor: colors.surface, 
-      padding: '16px 24px',
+      padding: window.innerWidth <= 768 ? '12px 16px' : '16px 24px',
       boxShadow: '0 4px 20px rgba(40, 40, 40, 0.5)',
       borderBottom: '1px solid ' + colors.border
     }
@@ -476,41 +478,84 @@ export const Header = (state: AppState) =>
         justifyContent: 'space-between',
         alignItems: 'center',
         maxWidth: '1200px',
-        margin: '0 auto'
+        margin: '0 auto',
+        flexWrap: window.innerWidth <= 768 ? 'wrap' : 'nowrap',
+        gap: window.innerWidth <= 768 ? '12px' : '0'
       }
     }, [
       h('div', { 
         style: { 
           display: 'flex',
           alignItems: 'center',
-          gap: '24px'
+          gap: window.innerWidth <= 768 ? '16px' : '24px',
+          flexWrap: window.innerWidth <= 480 ? 'wrap' : 'nowrap'
         }
       }, [
-        h('a', {
-          href: '#',
-          onclick: LoadTopStories,
+        h('div', {
           style: {
-            textDecoration: 'none',
-            cursor: 'pointer'
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px'
           }
         }, [
-          h('h1', { 
-            style: { 
-              fontSize: '18px', 
-              color: colors.text,
-              fontWeight: 'bold',
-              margin: '0',
-              transition: 'color 0.2s ease'
-            },
-            onmouseover: (state: any, event: any) => {
-              event.target.style.color = colors.primary
-              return state
-            },
-            onmouseout: (state: any, event: any) => {
-              event.target.style.color = colors.text
-              return state
+          h('a', {
+            href: '#',
+            onclick: LoadTopStories,
+            style: {
+              textDecoration: 'none',
+              cursor: 'pointer'
             }
-          }, text(UI_TEXT.SITE_TITLE))
+          }, [
+            h('div', {
+              style: {
+                backgroundColor: colors.primary,
+                color: colors.background,
+                width: '32px',
+                height: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '18px',
+                fontWeight: 'bold',
+                borderRadius: '4px',
+                transition: 'background-color 0.2s ease'
+              },
+              onmouseover: (state: any, event: any) => {
+                event.target.style.backgroundColor = colors.secondary
+                return state
+              },
+              onmouseout: (state: any, event: any) => {
+                event.target.style.backgroundColor = colors.primary
+                return state
+              }
+            }, text('H'))
+          ]),
+          h('a', {
+            href: '#',
+            onclick: LoadTopStories,
+            style: {
+              textDecoration: 'none',
+              cursor: 'pointer'
+            }
+          }, [
+            h('h1', { 
+              style: { 
+                fontSize: '18px', 
+                color: colors.text,
+                fontWeight: 'bold',
+                margin: '0',
+                transition: 'color 0.2s ease'
+              },
+              onmouseover: (state: any, event: any) => {
+                event.target.style.color = colors.primary
+                return state
+              },
+              onmouseout: (state: any, event: any) => {
+                event.target.style.color = colors.text
+                return state
+              }
+            }, text(UI_TEXT.SITE_TITLE))
+          ])
         ]),
         NavigationLinks(state)
       ])
