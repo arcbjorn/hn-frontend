@@ -112,7 +112,8 @@ export const view = (state: AppState) => {
             }
           }, text(UI_TEXT.BACK_TO_STORIES)),
           
-          state.currentStory && h('div', { 
+          // Story header in comments view
+          h('div', { 
             style: { 
               backgroundColor: colors.surface,
               padding: '16px',
@@ -120,40 +121,48 @@ export const view = (state: AppState) => {
               border: '1px solid #333'
             }
           }, [
-            state.currentStory.url ? 
-              h('a', {
-                href: state.currentStory.url,
-                target: '_blank',
-                style: {
-                  textDecoration: 'none',
-                  color: colors.text,
-                  transition: 'color 0.2s ease'
-                },
-                onmouseover: (state: any, event: any) => {
-                  event.target.style.color = colors.primary
-                  return state
-                },
-                onmouseout: (state: any, event: any) => {
-                  event.target.style.color = colors.text
-                  return state
-                }
-              }, [
+            state.currentStory ? 
+              state.currentStory.url ? 
+                h('a', {
+                  href: state.currentStory.url,
+                  target: '_blank',
+                  style: {
+                    textDecoration: 'none',
+                    color: colors.text,
+                    transition: 'color 0.2s ease'
+                  },
+                  onmouseover: (state: any, event: any) => {
+                    event.target.style.color = colors.primary
+                    return state
+                  },
+                  onmouseout: (state: any, event: any) => {
+                    event.target.style.color = colors.text
+                    return state
+                  }
+                }, [
+                  h('h2', { 
+                    style: { 
+                      margin: '0 0 8px 0',
+                      fontSize: '18px',
+                      color: 'inherit'
+                    }
+                  }, text(state.currentStory.title))
+                ]) :
                 h('h2', { 
                   style: { 
                     margin: '0 0 8px 0',
                     fontSize: '18px',
-                    color: 'inherit'
+                    color: colors.text
                   }
                 }, text(state.currentStory.title))
-              ]) :
-              h('h2', { 
+              : h('h2', { 
                 style: { 
                   margin: '0 0 8px 0',
                   fontSize: '18px',
-                  color: colors.text
+                  color: colors.textFaded
                 }
-              }, text(state.currentStory.title)),
-            h('div', { 
+              }, text('Loading story...')),
+            state.currentStory && h('div', { 
               style: { 
                 fontSize: '12px',
                 color: colors.textMuted,
@@ -197,7 +206,7 @@ export const view = (state: AppState) => {
           }
         }, state.comments.map((comment: any) => CommentItem(comment))),
         
-        !state.loading && state.comments && state.comments.length === 0 && h('div', {
+        !state.loading && (!state.comments || state.comments.length === 0) && h('div', {
           style: { 
             color: colors.textFaded,
             fontSize: '16px',
