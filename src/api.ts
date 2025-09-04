@@ -124,7 +124,7 @@ export const fetchCommentsEffect = async (dispatch: DispatchFunction, story: Sto
     const comments = await Promise.all(commentPromises)
     console.log(`${CONSOLE_MESSAGES.FETCHED_COMMENTS}`, comments.length)
     
-    dispatch(SetComments, comments.filter((c: Comment) => c && !c.deleted), story)
+    dispatch(SetComments, comments.filter((c: Comment) => c && !c.deleted))
   } catch (error) {
     console.error(`${CONSOLE_MESSAGES.ERROR_COMMENTS}`, error)
     dispatch(SetError, error instanceof Error ? error.message : ERROR_MESSAGES.FAILED_TO_LOAD_COMMENTS)

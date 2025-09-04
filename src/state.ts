@@ -38,10 +38,10 @@ export const SetCurrentPage = (state: AppState, page: string): AppState => ({
   error: null 
 })
 
-export const SetComments = (state: AppState, comments: Comment[], story: Story): AppState => ({ 
+export const SetComments = (state: AppState, comments: Comment[], story?: Story): AppState => ({ 
   ...state, 
   comments, 
-  currentStory: story, 
+  currentStory: story || state.currentStory, 
   loading: false, 
   error: null, 
   view: ViewType.COMMENTS 
