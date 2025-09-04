@@ -39,7 +39,7 @@ export const view = (state: AppState) => {
         flex: 1,
         maxWidth: '1000px',
         margin: '0 auto',
-        padding: '24px',
+        padding: window.innerWidth <= 768 ? '16px' : '24px',
         width: '100%',
         minHeight: '80vh',
         wordWrap: 'break-word'
